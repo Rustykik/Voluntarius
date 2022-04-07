@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Voluntarius</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&family=Ruslan+Display&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../style/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-backgournd"></div>
+    <div class="header-backgournd1"></div>
+
+    <nav class="header-nav">
+        <span class="main-logo">.Voluntarious</span>
+        <ul class="header-nav-list">
+            <li class="header-nav-list-item">
+                <span class="header-nav-list-item-text">Location</span>
+            </li>
+            <li  class="header-nav-list-item">
+                <span class="header-nav-list-item-text">Events</span>
+            </li>
+            <li class="header-nav-list-item">
+                <span class="header-nav-list-item-text">Courses</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="header-sign">
+        <div class="header-buttons">
+            <button class="header-button" onclick="location.href='/SignIn'">
+                <span class="header-button-text sign-in">Sign In</span>
+            </button>
+            <button class="header-button" onclick="location.href='/SignUp'">
+                <span class="header-button-text sign-up">Sign Up</span>
+            </button>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="va-section-welcome">
+		<div class="va-section-welcome-profile">
+			<div class="va-section-welcome-profile-info">
+				<label class="va-section-welcome-sign-form-label">First Name</label>
+				<!-- <input class="va-section-welcome-sign-form-input" type="text" placeholder="firstname" name="firstname"> -->
+				<label class="va-section-welcome-sign-form-label">Second Name</label>
+				<!-- <input class="va-section-welcome-sign-form-input" type="text" placeholder="secondname" name="secondname"> -->
+				<label class="va-section-welcome-sign-form-label">Email</label>
+				<!-- <input class="va-section-welcome-sign-form-input" type="text" placeholder="email" name="email"> -->
+				<label class="va-section-welcome-sign-form-label">Login</label>
+				<!-- <input class="va-section-welcome-sign-form-input" type="text" placeholder="Enter login" name="login">  -->
+				<label class="va-section-welcome-sign-form-label">Password</label>
+				<!-- <input class="va-section-welcome-sign-form-input" type="text" placeholder="Enter password" name="password">  -->
+			</div>
+		</div>
+        <div class="va-section-welcome-event-back">
+
+        </div>
+		<div class="va-section-welcome-event-profile">
+				<form class="va-section-welcome-event-create" method="post">
+					<label class="va-section-welcome-event-create-label">Event Name</label>
+					<input class="va-section-welcome-event-create-input" type="text" placeholder="Event name" name="eventName">
+					<label class="va-section-welcome-event-create-label ">Description</label>
+					<textarea class="va-section-welcome-event-create-input-description" type="text" placeholder="Description" name="description">
+					</textarea>
+					<label class="va-section-welcome-event-create-label">Start</label>
+					<input class="va-section-welcome-event-create-input" type="datetime-local" placeholder="Event start" name="eventStart">
+					<label class="va-section-welcome-event-create-label">End</label>
+					<input class="va-section-welcome-event-create-input" type="datetime-local" placeholder="Event end" name="eventEnd">
+					<label class="va-section-welcome-event-create-label">Location</label>
+					<input class="va-section-welcome-event-create-input" type="text" placeholder="Location" name="location">
+					<button class="va-section-welcome-event-create-button">Create</button>
+				</form>
+			<div class="va-section-welcome-event-list">
+
+			</div>
+		</div>
+    </section>
+</main>
+</body>
+</html>
