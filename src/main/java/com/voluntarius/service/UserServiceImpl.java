@@ -2,7 +2,6 @@ package com.voluntarius.service;
 
 import com.voluntarius.database.dao.EventDao;
 import com.voluntarius.database.dao.UserDao;
-import com.voluntarius.database.dao.UserDaoImpl;
 import com.voluntarius.models.Event;
 import com.voluntarius.models.User;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -21,9 +21,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean signIn(String login, String password) throws  SQLException {
 
-        User user = userDao.getUserByLogin(login);
-        if (user != null) {
-            if (user.getPasswd().equals(password))
+        Optional<User> user = userDao.getUserByLogin(login);
+        if (user.isPresent()) {
+            if (user.get().getPasswd().equals(password))
                 return true;
         }
         return false;
@@ -33,10 +33,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean signUp(String firstname, String lastname, String login, String email, String password) throws SQLException {
 
-        if (userDao.getUserByLogin(login) == null) // so we need it? because it unique in db
+        Optional<User> user = userDao.getUserByLogin(login);
+        if (user.isEmpty()) // so we need it? because it unique in db
         {
-            User user = new User(firstname, lastname, login, email, password);
-            userDao.saveUser(user);
+            userDao.insertUser(new User(firstname, lastname, login, email, password);
             return true;
         }
         return false;
