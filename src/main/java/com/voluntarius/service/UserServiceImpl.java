@@ -5,19 +5,18 @@ import com.voluntarius.database.dao.UserDao;
 import com.voluntarius.database.dao.UserDaoImpl;
 import com.voluntarius.models.Event;
 import com.voluntarius.models.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
-    private EventDao eventDao;
-
-    public UserServiceImpl (UserDao userDao, EventDao eventDao) {
-        this.userDao = userDao;
-        this.eventDao = eventDao;
-    }
+    private final UserDao userDao;
+    private final EventDao eventDao;
 
     @Override
     public boolean signIn(String login, String password) throws  SQLException {

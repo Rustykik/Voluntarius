@@ -5,7 +5,10 @@
 ## TO DO
 
 ### in progress
-* add spring framework
+* make user and events full immutable
+* add spring framework:
+  - should we always do new rowmappers or we can instance it in class
+  -  public List<Event> getCurrentEvents(LocalDateTime currentTime) without datetime formatter
 * change H2 database to PostgreSQL oe some NoSQL
 * add tests
 * integrate in docker container

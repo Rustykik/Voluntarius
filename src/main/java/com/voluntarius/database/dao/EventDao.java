@@ -5,15 +5,17 @@ import com.voluntarius.models.User;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
 public interface EventDao {
-    public void saveEvent(Event event) throws SQLException;
-    public Event getEventById(Integer id) throws SQLException;
-    public Event getEventByEventName(String eventName) throws SQLException;
-    public Set<Event> getSubscribedEvents(User owner) throws SQLException;
-    public Set<Event> getEventsByLocation(String location) throws SQLException;
-    public Set<Event> getCurrentEvents(LocalDateTime currentTime) throws SQLException;
-    public Set<Event> getEventByOwnerId(Integer id) throws SQLException;
-    public Set<Event> getEventUserRelatedEvents(User user) throws SQLException;
+    public int insertEvent(Event event) throws SQLException;
+    public void updateEvent(Event event) throws SQLException;
+    public Optional<Event> getEventById(Integer id) throws SQLException;
+    public Optional<Event> getEventByEventName(String eventName) throws SQLException;
+    public List<Event> getSubscribedEvents(User owner) throws SQLException;
+    public List<Event> getEventsByLocation(String location) throws SQLException;
+    public List<Event> getCurrentEvents(LocalDateTime currentTime) throws SQLException;
+    public List<Event> getEventByOwnerId(Integer id) throws SQLException;
+    public List<Event> getEventUserRelatedEvents(User user) throws SQLException;
 }

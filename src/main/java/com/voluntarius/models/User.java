@@ -3,7 +3,7 @@ package com.voluntarius.models;
 import lombok.Data;
 
 import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 @Data
 public class User {
@@ -13,7 +13,7 @@ public class User {
     private String login;
     private String passwd;
     private String email;
-    public Set<Event> eventSet;
+    private List<Event> eventSet;
 
     public User(String firstname,
                 String lastname,
@@ -25,7 +25,7 @@ public class User {
         this.login = login;
         this.passwd = password;
         this.email = email;
-        this.eventSet = Collections.emptySet();
+        this.eventSet = Collections.emptyList();
     }
 
     public User(Integer id,
@@ -40,7 +40,7 @@ public class User {
         this.login = login;
         this.passwd = password;
         this.email = email;
-        this.eventSet = Collections.emptySet();
+        this.eventSet = Collections.emptyList();
     }
 
 }
