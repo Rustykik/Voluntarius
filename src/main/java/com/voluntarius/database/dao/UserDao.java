@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
+    List<User> getUsers() throws SQLException;
     Optional<User> getUserById (Integer id) throws SQLException;
     Optional<User> getUserByLogin (String login) throws SQLException;
     int insertUser(User user) throws SQLException;
     void updateUser(User user) throws SQLException;
+    void updateSubscriptions(User user) throws SQLException;
     List<User> getUsersSubscribedOnEvent (Event event) throws SQLException;
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EventDao {
+    public List<Event> getEvents() throws SQLException;
     public int insertEvent(Event event) throws SQLException;
     public void updateEvent(Event event) throws SQLException;
     public Optional<Event> getEventById(Integer id) throws SQLException;

@@ -13,7 +13,7 @@ public class User {
     private String login;
     private String passwd;
     private String email;
-    private List<Event> eventSet;
+    private List<Event> eventList;
 
     public User(String firstname,
                 String lastname,
@@ -25,7 +25,7 @@ public class User {
         this.login = login;
         this.passwd = password;
         this.email = email;
-        this.eventSet = Collections.emptyList();
+        this.eventList = Collections.emptyList();
     }
 
     public User(Integer id,
@@ -40,7 +40,7 @@ public class User {
         this.login = login;
         this.passwd = password;
         this.email = email;
-        this.eventSet = Collections.emptyList();
+        this.eventList = Collections.emptyList();
     }
 
 }

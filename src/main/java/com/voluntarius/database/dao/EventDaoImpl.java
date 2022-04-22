@@ -19,6 +19,11 @@ public class EventDaoImpl implements EventDao {
     private final JdbcTemplate source;
 
     @Override
+    public List<Event> getEvents() throws SQLException {
+        return source.query("SELECT * FROM event_table", new EventRowMapper());
+    }
+
+    @Override
     public int insertEvent(Event event) throws SQLException {
         String sql = "INSERT " +
                 "INTO event_table (owner_id, eventName, description, eventStart, eventEnd, location, likes)" +

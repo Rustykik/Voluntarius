@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
     private final JdbcTemplate source;
+
+    // load only part of users 0-50 50-100 and etc
+    @Override
+    public List<User> getUsers() throws SQLException {
+        return source.query("SELECT * FROM users", new UserRowMapper());
+    }
 
     @Override
     public Optional<User> getUserById(Integer id) throws SQLException {
@@ -44,7 +51,25 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) throws SQLException {
+            String sql = "update users" +
+                    "set firstname = ?, lastname = ?, login = ?, passwd = ?, email = ?" +
+                    "where id = ?";
+            source.update(sql,
+                    user.getFirstname(),
+                    user.getLastname(),
+                    user.getLogin(),
+                    user.getPasswd(),
+                    user.getEmail(),
+                    user.getId());
+    }
 
+    @Override
+    public void updateSubscriptions(User user) throws SQLException {
+       source.update("delete from subscribed where user_id = ?", user.getId());
+       List<Event> events = user.getEventList();
+       for (Event event : events)
+           source.update("insert into subscribed (user_id, event_id)" +
+                   "values (?, ?)", user.getId(), event.getId());
     }
 
     @Override
