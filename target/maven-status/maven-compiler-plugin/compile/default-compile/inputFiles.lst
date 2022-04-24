@@ -1,0 +1,13 @@
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/VoluntariusApp.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/models/User.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/database/dao/UserDaoImpl.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/service/UserServiceImpl.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/database/rowmapper/UserRowMapper.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/controllers/VoluntariousApplicationController.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/config/VoluntariousApplicationConfig.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/database/dao/EventDao.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/service/UserService.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/models/Event.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/database/dao/UserDao.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/database/dao/EventDaoImpl.java
+/home/rusty/projects/java/Voluntarius/src/main/java/com/voluntarius/database/rowmapper/EventRowMapper.java

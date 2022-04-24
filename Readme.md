@@ -43,6 +43,7 @@
 
 ### try devops
 * add monitoring spring or grafana
+* rabbit
 
 ## Voluntarius
 
@@ -50,8 +51,6 @@ Simple website to create and publish events
 
 ## Run
 
-mvn clean install org.codehaus.cargo:cargo-maven2-plugin:run
-
-then open localhost:8080 in browser
-maybe you will need to config h2 db
+docker build . -t [name]  
+docker run [name]
 
