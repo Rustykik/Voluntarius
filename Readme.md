@@ -3,6 +3,7 @@
 ---
 
 ## TO DO
+make datasource properties autoconfigurable from application.yml
 
 ### in progress
 * make user and events full immutable

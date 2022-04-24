@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 @SpringBootApplication
 class VoluntariousApplication {
+    //CHANGE .sql to file
     public static void main(String[] args) throws IOException, SQLException {
         SpringApplication.run(VoluntariousApplication.class, args);
     }
