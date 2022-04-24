@@ -51,6 +51,7 @@ Simple website to create and publish events
 
 ## Run
 
+mvn clean install  
 docker build . -t [name]  
 docker run [name]
 
