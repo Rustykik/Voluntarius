@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  voluntarious-app:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
   postgres:
     container_name: 'postgres_db'
     image: 'postgres:alpine'
@@ -10,13 +17,14 @@ services:
       POSTGRES_PASSWORD: "qwer"
 #      PGDATA: /data/postgres
     volumes:
-      - './src/resources/1-create.sql:/docker-entrypoint-initdb.d/1-create.sql'
-      - './src/resources/2-fill.sql:/docker-entrypoint-initdb.d/2-fill.sql'
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./src/main/resources/1-create.sql:/docker-entrypoint-initdb.d/1-create.sql
+      - ./src/main/resources/2-fill.sql:/docker-entrypoint-initdb.d/2-fill.sql
+      - /postgres-data:/var/lib/postgresql/data
     ports:
       - "${PG_PORT}:${PG_PORT}"
     networks:
       - postgres
+      - backend
     restart: unless-stopped
     env_file:
       - .env
@@ -40,6 +48,8 @@ services:
 
 networks:
   postgres:
+    driver: bridge
+  backend:
     driver: bridge
 
 volumes:
