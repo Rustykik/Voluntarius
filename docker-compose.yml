@@ -10,8 +10,8 @@ services:
       POSTGRES_PASSWORD: "qwer"
 #      PGDATA: /data/postgres
     volumes:
-      - ./src/resources/schema.sql:/docker-entrypoint-initdb.d/1-create.sql
-      - ./src/resources/data.sql:/docker-entrypoint-initdb.d/2-fill.sql
+      - './src/resources/1-create.sql:/docker-entrypoint-initdb.d/1-create.sql'
+      - './src/resources/2-fill.sql:/docker-entrypoint-initdb.d/2-fill.sql'
       - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "${PG_PORT}:${PG_PORT}"
