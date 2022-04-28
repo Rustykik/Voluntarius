@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void subscribeToEvent(User user, Event event) throws SQLException {
-        List<Event> userEvents = user.getEventList();
+        List<Event> userEvents = user.getCreatedEvents();
         userEvents.add(event);
         userDao.updateSubscriptions(user);
     }

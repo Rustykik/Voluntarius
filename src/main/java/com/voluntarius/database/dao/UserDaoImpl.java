@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +65,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateSubscriptions(User user) throws SQLException {
        source.update("delete from subscribed where user_id = ?", user.getId());
-       List<Event> events = user.getEventList();
+       List<Event> events = user.getCreatedEvents();
        for (Event event : events)
            source.update("insert into subscribed (user_id, event_id)" +
                    "values (?, ?)", user.getId(), event.getId());
