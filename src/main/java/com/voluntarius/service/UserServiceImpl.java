@@ -53,9 +53,6 @@ public class UserServiceImpl implements UserService {
         return eventDao.getEvents();
     }
 
-
-
-
     @Override
     public boolean signUp(String firstname, String lastname, String login, String email, String password) throws SQLException {
 

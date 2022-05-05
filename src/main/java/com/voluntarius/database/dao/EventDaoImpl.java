@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,16 +18,16 @@ public class EventDaoImpl implements EventDao {
     private final JdbcTemplate source;
 
     @Override
-    public List<Event> getEvents() throws SQLException {
+    public List<Event> getEvents() {
         return source.query("SELECT * FROM event_table", new EventRowMapper());
     }
 
     @Override
-    public int insertEvent(Event event) throws SQLException {
+    public int insertEvent(Event event) {
         String sql = "INSERT " +
                 "INTO event_table (owner_id, eventName, description, eventStart, eventEnd, location, likes)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        return source.update(sql, event.getOwner_id(),
+        return source.update(sql, event.getOwnerId(),
                 event.getEventName(),
                 event.getDescription(),
                 event.getEventStart(),
@@ -37,12 +36,22 @@ public class EventDaoImpl implements EventDao {
                 event.getLikes());
     }
     @Override
-    public void updateEvent(Event event) throws SQLException {
-
+    public int updateEvent(Event event) {
+        String sql = "UPDATE event_table " +
+                "SET eventName = ?, description = ?, eventStart = ?, eventEnd = ?, location = ?, likes = ? " +
+                "where id = ?";
+        return source.update(sql,
+                event.getEventName(),
+                event.getDescription(),
+                event.getEventStart(),
+                event.getEventEnd(),
+                event.getLocation(),
+                event.getLikes(),
+                event.getId());
     }
 
     @Override
-    public Optional<Event> getEventById(Integer id) throws SQLException {
+    public Optional<Event> getEventById(Integer id) {
         String sql =
                 "SELECT " +
                 "* FROM event_table " +
@@ -52,31 +61,31 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public Optional<Event> getEventByEventName(String eventName) throws SQLException {
+    public List<Event> getEventsByEventName(String eventName) {
         String sql =
                 "SELECT " +
                 "* FROM event_table " +
-                "WHERE eventName = ? = ?";
-        return source.query(sql, new EventRowMapper(), eventName).stream().findFirst();
+                "WHERE eventName = ?";
+        return source.query(sql, new EventRowMapper(), eventName);
     }
 
     @Override
-    public List<Event> getSubscribedEvents(User owner) throws SQLException {
+    public List<Event> getSubscribedEvents(Integer ownerId) {
        String sql = "select * from event_table " +
                 "inner join subscribed on event_table.id = subscribed.event_id " +
                 "inner join users on users.id = subscribed.user_id " +
                 "where subscribed.user_id = ?";
-       return source.query(sql, new EventRowMapper(), owner.getId());
+       return source.query(sql, new EventRowMapper(), ownerId);
     }
 
     @Override
-    public List<Event> getEventsByLocation(String location) throws SQLException {
+    public List<Event> getEventsByLocation(String location) {
         String sql = "select * from event_table where location = ?";
         return source.query(sql, new EventRowMapper(), location);
     }
 
     @Override
-    public List<Event> getCurrentEvents(LocalDateTime currentTime) throws SQLException {
+    public List<Event> getCurrentEvents(LocalDateTime currentTime) {
         String sql = "select * from event_table where eventStart < ? and eventEnd > ?";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String currTime = currentTime.format(formatter);
@@ -84,13 +93,13 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public List<Event> getEventByOwnerId(Integer id) throws SQLException {
+    public List<Event> getEventByOwnerId(Integer id) {
         String sql = "select * from event_table where owner_id = ?";
         return source.query(sql, new EventRowMapper(), id);
     }
 
     @Override
-    public List<Event> getEventUserRelatedEvents(User user) throws SQLException {
+    public List<Event> getEventUserRelatedEvents(User user) {
         String sql = "select * " +
                 "from event_table " +
                 "where owner_id = ? " +

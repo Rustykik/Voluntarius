@@ -3,16 +3,15 @@ package com.voluntarius.database.dao;
 import com.voluntarius.models.Event;
 import com.voluntarius.models.User;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
-    List<User> getUsers() throws SQLException;
-    Optional<User> getUserById (Integer id) throws SQLException;
-    Optional<User> getUserByLogin (String login) throws SQLException;
-    int insertUser(User user) throws SQLException;
-    void updateUser(User user) throws SQLException;
-    void updateSubscriptions(User user) throws SQLException;
-    List<User> getUsersSubscribedOnEvent (Event event) throws SQLException;
+    List<User> getUsers();
+    Optional<User> getUserById (Integer id);
+    Optional<User> getUserByLogin (String login);
+    int insertUser(User user);
+    int updateUser(User user);
+    void updateSubscriptions(User user);
+    List<User> getUsersSubscribedOnEvent (Event event);
 }

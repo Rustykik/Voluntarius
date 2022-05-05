@@ -13,7 +13,7 @@ public class Event {
     private LocalDateTime eventStart;
     private LocalDateTime eventEnd;
     private String location;
-    private Integer owner_id;
+    private Integer ownerId;
 
     private Integer likes;
     private Integer subscribed;
@@ -31,7 +31,7 @@ public class Event {
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.location = location;
-        this.owner_id = owner;
+        this.ownerId = owner;
         this.likes = 0;
         this.subscribed = 0;
     }
@@ -47,7 +47,7 @@ public class Event {
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.location = location;
-        this.owner_id = owner;
+        this.ownerId = owner;
         this.likes = 0;
         this.subscribed = 0;
     }
