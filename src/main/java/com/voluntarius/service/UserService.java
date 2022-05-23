@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
     boolean signIn (String login, String password); // sql exception
-    boolean signUp (String firstname, String lastname, String login, String email, String password);
+    boolean signUp (User user);
     public void updateUser(User user);
     void subscribeToEvent(Integer userId, Integer eventId) throws IllegalArgumentException;
     void unsubscribeFromEvent(Integer userId, Integer eventId) throws IllegalArgumentException;

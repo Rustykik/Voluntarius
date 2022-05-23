@@ -73,14 +73,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signUp(String firstname, String lastname, String login, String email, String password) {
+    public boolean signUp(User user) {
 
-        Optional<User> user = userDao.getUserByLogin(login);
-        if (user.isPresent()) // so we need it? because it unique in db
+        Optional<User> userToRegister = userDao.getUserByLogin(user.getLogin());
+        if (userToRegister.isPresent()) // so we need it? because it unique in db
         {
             return false;
         }
-        userDao.insertUser(new User(firstname, lastname, login, password, email));
+        userDao.insertUser(user);
         return true;
     }
 

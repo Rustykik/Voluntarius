@@ -80,18 +80,18 @@ class UserServiceTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/users.csv", numLinesToSkip = 1)
     void ShouldReturnTrueOnlyNotExistingAccounts(int Id,
-                                                 String fistname,
+                                                 String firstname,
                                                  String lastname,
                                                  String login,
                                                  String exists,
                                                  String password,
                                                  String email) {
         //given
-
+        User nonExistingUser = new User(firstname, lastname, login, password, email);
         //when
 
         //then
-        assertThat(underTest.signUp(fistname, lastname, login, email, password)).isEqualTo(!Boolean.valueOf(exists));
+        assertThat(underTest.signUp(nonExistingUser)).isEqualTo(!Boolean.valueOf(exists));
     }
 
     @ParameterizedTest
@@ -106,7 +106,7 @@ class UserServiceTest {
         //given
         User nonExistingUser = new User(firstname, lastname, login, password, email);
         //when
-        underTest.signUp(firstname, lastname, login, email, password);
+        underTest.signUp(nonExistingUser);
 
         //then
         assertThat(underTest.signIn(login, password)).isEqualTo(Boolean.TRUE);
