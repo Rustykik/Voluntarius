@@ -19,24 +19,24 @@ public class UserDaoImpl implements UserDao {
     // load only part of users 0-50 50-100 and etc
     @Override
     public List<User> getUsers() {
-        return source.query("SELECT * FROM users", new UserRowMapper());
+        return source.query("SELECT * FROM users_table", new UserRowMapper());
     }
 
     @Override
     public Optional<User> getUserById(Integer id) {
-        String sql = "select * from users where id = ?";
+        String sql = "select * from users_table where id = ?";
         return source.query(sql, new UserRowMapper(), id).stream().findFirst();
     }
 
     @Override
     public Optional<User> getUserByLogin(String login) {
-        String sql = "select * from users where login = ?";
+        String sql = "select * from users_table where login = ?";
         return source.query(sql, new UserRowMapper(), login).stream().findFirst();
     }
 
     @Override
     public int insertUser(User user) {
-        String sql = "insert into users (firstname, lastname, login, passwd, email)" +
+        String sql = "insert into users_table (firstname, lastname, login, passwd, email)" +
                 "values (?, ?, ?, ?, ?)";
         return source.update(sql,
                             user.getFirstname(),
@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int updateUser(User user) {
-            String sql = "update users " +
+            String sql = "update users_table " +
                     "set firstname = ?, lastname = ?, login = ?, passwd = ?, email = ? " +
                     "where id = ?";
             return source.update(sql,
@@ -67,15 +67,16 @@ public class UserDaoImpl implements UserDao {
     public void updateSubscriptions(User user) {
        source.update("delete from subscribed where user_id = ?", user.getId());
        List<Event> events = user.getSubscribedEvents();
-       for (Event event : events)
+       for (Event event : events) {
            source.update("insert into subscribed (user_id, event_id)" +
                    "values (?, ?)", user.getId(), event.getId());
+       }
     }
 
     @Override
     public List<User> getUsersSubscribedOnEvent(Event event) {
-        String sql = "select users.id, firstname, lastname, login, passwd, email from users" +
-                "inner join subscribed on subscribed.user_id = users.id" +
+        String sql = "select users_table.id, firstname, lastname, login, passwd, email from users_table" +
+                "inner join subscribed on subscribed.user_id = users_table.id" +
                 "inner join event_table on subscribed.event_id = event_table.id" +
                 "where event_table.id = ?";
         return source.query(sql, new UserRowMapper(), event.getId());

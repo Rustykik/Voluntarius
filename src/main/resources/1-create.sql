@@ -1,6 +1,6 @@
-drop table if exists users;
+drop table if exists users_table;
 drop table if exists events;
-create table users
+create table users_table
 (
     id SERIAL primary key,
     firstname VARCHAR (50),
@@ -13,7 +13,7 @@ create table users
 create table event_table
 (
     id SERIAL primary key,
-    owner_id INT not null REFERENCES users(id),
+    owner_id INT not null REFERENCES users_table(id),
     eventName VARCHAR (50),
     description VARCHAR (400),
     eventStart TIMESTAMP ,
@@ -25,7 +25,7 @@ create table event_table
 -- add unique pair
 create table subscribed
 (
-    user_id SERIAL REFERENCES users(id),
+    user_id SERIAL REFERENCES users_table(id),
     event_id SERIAL REFERENCES event_table(id)
 );
 

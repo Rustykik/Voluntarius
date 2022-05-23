@@ -73,7 +73,7 @@ public class EventDaoImpl implements EventDao {
     public List<Event> getSubscribedEvents(Integer ownerId) {
        String sql = "select * from event_table " +
                 "inner join subscribed on event_table.id = subscribed.event_id " +
-                "inner join users on users.id = subscribed.user_id " +
+                "inner join users_table on users_table.id = subscribed.user_id " +
                 "where subscribed.user_id = ?";
        return source.query(sql, new EventRowMapper(), ownerId);
     }
@@ -107,8 +107,8 @@ public class EventDaoImpl implements EventDao {
                 "select event_table.id, owner_id, eventName, description, eventStart, eventEnd, location, likes " +
                 "from event_table " +
                 "inner join subscribed on event_table.id = subscribed.event_id " +
-                "inner join users on subscribed.user_id = users.id " +
-                "where users.id = ?";
+                "inner join users_table on subscribed.user_id = users_table.id " +
+                "where users_table.id = ?";
         return source.query(sql, new EventRowMapper(), user.getId());
     }
 }

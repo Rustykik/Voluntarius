@@ -1,4 +1,4 @@
-insert into users (firstname, lastname, login, passwd,email)
+insert into users_table (firstname, lastname, login, passwd,email)
 values ('Jhon', 'Kim', 'Jkim', '123', 'jk@mail.ru'),
        ('King', 'Kong', 'KK', 'qwer', 'KingKong@mail.ru'),
        ('Anton', 'Gandon', 'AG', 'Ant', 'Contex@mail.ru'),
