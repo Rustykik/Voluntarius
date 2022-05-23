@@ -3,12 +3,21 @@
 ---
 
 ## TO DO
+make datasource properties autoconfigurable from application.yml
 
 ### in progress
-* add spring framework
-* change H2 database to PostgreSQL oe some NoSQL
-* add tests
-* integrate in docker container
+- [ ] add tests
+- check that owner id exists when insert event
+- [ ] make custom exceptions
+- [ ] add mvnw
+- [ ] make user and events fully immutable
+- [x] add spring framework:
+- [ ] should we always do new rowmappers or we can instance it in class
+- [ ] public List<Event> getCurrentEvents(LocalDateTime currentTime) without datetime formatter
+- [ ] take out password from returns and rowmappers
+- [x] change H2 database to PostgreSQL oe some NoSQL
+
+- [x] integrate in docker container
 
 
 ### rework and reorganize frontend: 
@@ -39,6 +48,7 @@
 
 ### try devops
 * add monitoring spring or grafana
+* rabbit
 
 ## Voluntarius
 
@@ -46,8 +56,7 @@ Simple website to create and publish events
 
 ## Run
 
-mvn clean install org.codehaus.cargo:cargo-maven2-plugin:run
+mvn clean install
+docker-compose up
 
-then open localhost:8080 in browser
-maybe you will need to config h2 db
-
+## Return values

@@ -1,0 +1,13 @@
+id,firstname,lastname,login,exists,password,email
+1,Jhon,Kim,Jkim,true,123,jk@mail.ru
+2,King,Kong,KK,true,qwer,KingKong@mail.ru
+3,Anton,Ton,AG,true,Ant,Contex@mail.ru
+4,John,Cena,AndHisNameIs...,true,jkl,JohnCena@mail.ru
+5,Marshal,MM,Eminem,true,MyNameIs,Eminem@mail.ru
+6,Godzilla,UAAARHHH,LittleReptile,true,WWWWW,Godzilla@mail.ru
+10,af,asf,asfd,false,jdjkl,afdfa
+11,asfsa,df,afaasdf,false,skdklsdf,afsdfasd
+12,aafa,asf,afafasfd,false,aaaa,bred
+13,Anton,Cena,asfsa,false,WWWWW,asdffd
+14,Marshal,Marshal,gffg,false,IIJH,adfadf
+15,a,a,a,false,OIJIJIJ,adsfdsa

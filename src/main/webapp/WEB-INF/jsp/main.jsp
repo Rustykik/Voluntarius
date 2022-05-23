@@ -4,7 +4,8 @@
 <%@ page import="com.voluntarius.database.dao.EventDaoImpl" %>
 <%@ page import="com.voluntarius.models.Event" %>
 <%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.util.Set" %><%--
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: rusty
   Date: 04.04.2022
@@ -67,7 +68,7 @@
         <div class="va-section-welcome-event-list">
             <% DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); %>
             <% EventDao eventDao = new EventDaoImpl(SingletonDataAccess.getInstance().getSource()); %>
-            <% Set<Event> eventSet = eventDao.getCurrentEvents(LocalDateTime.now()); %>
+            <% List<Event> eventSet = eventDao.getCurrentEvents(LocalDateTime.now()); %>
             <% for (Event event : eventSet) { %>
             <div class="event">
                 <div class="event-name, event-text">Event name:<br> <%= event.getEventName() %> </div>

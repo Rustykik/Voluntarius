@@ -1,79 +1,84 @@
 package com.voluntarius.database.dao;
 
-import com.voluntarius.database.db.SimpleJdbcTemplate;
+import com.voluntarius.database.rowmapper.UserRowMapper;
 import com.voluntarius.models.Event;
 import com.voluntarius.models.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
+
+@Repository
+@RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
-    private SimpleJdbcTemplate source;
+    private final JdbcTemplate source;
 
-    public UserDaoImpl(SimpleJdbcTemplate source) {
-        this.source = source;
-    }
-
-    private User CreateUser(ResultSet resultSet) throws SQLException {
-        return  new User(
-                resultSet.getInt("id"),
-                resultSet.getString("firstname"),
-                resultSet.getString("lastname"),
-                resultSet.getString("login"),
-                resultSet.getString("passwd"),
-                resultSet.getString("email")
-                );
+    // load only part of users 0-50 50-100 and etc
+    @Override
+    public List<User> getUsers() {
+        return source.query("SELECT * FROM users_table", new UserRowMapper());
     }
 
     @Override
-    public User getUserById(Integer id) throws SQLException {
-        return source.prepareStatement("select * from users where id = ?", stmt -> {
-            stmt.setInt(1, id);
-            ResultSet resultSet = stmt.executeQuery();
-            return CreateUser(resultSet);
-        });
+    public Optional<User> getUserById(Integer id) {
+        String sql = "select * from users_table where id = ?";
+        return source.query(sql, new UserRowMapper(), id).stream().findFirst();
     }
 
     @Override
-    public User getUserByLogin(String login) throws SQLException {
-        return source.prepareStatement("select * from users where login = ?", stmt -> {
-            stmt.setString(1, login);
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next())
-                return CreateUser(resultSet);
-            else
-                return null;
-        });
+    public Optional<User> getUserByLogin(String login) {
+        String sql = "select * from users_table where login = ?";
+        return source.query(sql, new UserRowMapper(), login).stream().findFirst();
     }
 
     @Override
-    public void saveUser(User user) throws SQLException {
-        source.prepareStatement("insert into users (firstname, lastname, login, passwd, email)" +
-                "values (?, ?, ?, ?, ?)", stmt -> {
-            stmt.setString(1, user.getFirstname());
-            stmt.setString(1, user.getLastname());
-            stmt.setString(1, user.getLogin());
-            stmt.setString(1, user.getPasswd());
-            stmt.setString(1, user.getEmail());
-        });
+    public int insertUser(User user) {
+        String sql = "insert into users_table (firstname, lastname, login, passwd, email)" +
+                "values (?, ?, ?, ?, ?)";
+        return source.update(sql,
+                            user.getFirstname(),
+                            user.getLastname(),
+                            user.getLogin(),
+                            user.getPasswd(),
+                            user.getEmail()
+        );
     }
 
     @Override
-    public Set<User> getUserSubscribedOnEvent(Event event) throws SQLException {
+    public int updateUser(User user) {
+            String sql = "update users_table " +
+                    "set firstname = ?, lastname = ?, login = ?, passwd = ?, email = ? " +
+                    "where id = ?";
+            return source.update(sql,
+                    user.getFirstname(),
+                    user.getLastname(),
+                    user.getLogin(),
+                    user.getPasswd(),
+                    user.getEmail(),
+                    user.getId());
 
-        return source.prepareStatement("select users.id, firstname, lastname, login, passwd, email from users" +
-                "inner join subscribed on subscribed.user_id = users.id" +
+    }
+
+    // hard to test
+    @Override
+    public void updateSubscriptions(User user) {
+       source.update("delete from subscribed where user_id = ?", user.getId());
+       List<Event> events = user.getSubscribedEvents();
+       for (Event event : events) {
+           source.update("insert into subscribed (user_id, event_id)" +
+                   "values (?, ?)", user.getId(), event.getId());
+       }
+    }
+
+    @Override
+    public List<User> getUsersSubscribedOnEvent(Event event) {
+        String sql = "select users_table.id, firstname, lastname, login, passwd, email from users_table" +
+                "inner join subscribed on subscribed.user_id = users_table.id" +
                 "inner join event_table on subscribed.event_id = event_table.id" +
-                "where event_table.id = ?", stmt -> {
-            stmt.setInt(1, event.getId());
-            ResultSet resultSet = stmt.executeQuery();
-            Set<User> subscribedUsers = new HashSet<>();
-            while (resultSet.next()) {
-                subscribedUsers.add(CreateUser(resultSet));
-            }
-            return subscribedUsers;
-        });
+                "where event_table.id = ?";
+        return source.query(sql, new UserRowMapper(), event.getId());
     }
 }

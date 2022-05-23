@@ -1,0 +1,10 @@
+app:
+  main:
+    datasource:
+      jdbc-url: jdbc:postgresql://postgres:5432/rusty
+      username: 'rusty'
+      password: 'qwer'
+      pool-size: 30
+      driver-class-name: org.postgresql.Driver
+
+

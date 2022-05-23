@@ -1,11 +1,15 @@
 package com.voluntarius.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private Integer id;
     private String firstname;
@@ -13,7 +17,8 @@ public class User {
     private String login;
     private String passwd;
     private String email;
-    public Set<Event> eventSet;
+    private List<Event> createdEvents;
+    private List<Event> subscribedEvents;
 
     public User(String firstname,
                 String lastname,
@@ -25,7 +30,8 @@ public class User {
         this.login = login;
         this.passwd = password;
         this.email = email;
-        this.eventSet = Collections.emptySet();
+        this.createdEvents = Collections.emptyList();
+        this.subscribedEvents = Collections.emptyList();
     }
 
     public User(Integer id,
@@ -40,7 +46,8 @@ public class User {
         this.login = login;
         this.passwd = password;
         this.email = email;
-        this.eventSet = Collections.emptySet();
+        this.createdEvents = Collections.emptyList();
+        this.subscribedEvents = Collections.emptyList();
     }
 
 }
