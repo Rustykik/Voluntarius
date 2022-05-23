@@ -1,6 +1,10 @@
 package com.voluntarius.database.dao;
 
+import com.voluntarius.utils.DBSetup;
 import com.voluntarius.models.Event;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -8,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +26,20 @@ class EventDaoTest {
     @Autowired
     private EventDao underTest;
 
+    @BeforeAll
+    static void  init(@Autowired DBSetup dbSetup) {
+        dbSetup.drop();
+    }
+    @BeforeEach
+    void setup(@Autowired DBSetup dbSetup) throws IOException {
+        dbSetup.create();
+        dbSetup.fill();
+    }
+
+    @AfterEach
+    void drop(@Autowired DBSetup dbSetup) {
+        dbSetup.drop();
+    }
     @Test
     void ShouldGetEvents() {
         // given

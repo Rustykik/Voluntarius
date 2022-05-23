@@ -1,6 +1,10 @@
 package com.voluntarius.database.dao;
 
+import com.voluntarius.utils.DBSetup;
 import com.voluntarius.models.User;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -8,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 
+import static com.voluntarius.utils.TestData.JKIM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -19,6 +25,21 @@ class UserDaoTest {
 
     @Autowired
     private UserDao underTest;
+
+    @BeforeAll
+    static void  init(@Autowired DBSetup dbSetup) {
+        dbSetup.drop();
+    }
+    @BeforeEach
+    void setup(@Autowired DBSetup dbSetup) throws IOException {
+        dbSetup.create();
+        dbSetup.fill();
+    }
+
+    @AfterEach
+    void drop(@Autowired DBSetup dbSetup) {
+        dbSetup.drop();
+    }
 
     @Test
     void ShouldInsertUser() {
@@ -34,11 +55,11 @@ class UserDaoTest {
     @Test
     void ShouldNotInsertExistingByLoginUserAndThrowException() {
         // given
-        User John = new User("John", "Bood", "Jbood", "tyur", "John@gmail.com");
+        User user= JKIM;
         // when
 //        int inserts = underTest.insertUser(John);
         // then
-        assertThatThrownBy(()->underTest.insertUser(John)).isInstanceOf(DataAccessException.class);
+        assertThatThrownBy(()->underTest.insertUser(user)).isInstanceOf(DataAccessException.class);
     }
 
     @Test
@@ -48,7 +69,7 @@ class UserDaoTest {
         // when
         Collection<User> users = underTest.getUsers();
         // then
-        assertThat(users).hasSize(7);
+        assertThat(users).hasSize(6);
     }
 
     @ParameterizedTest
@@ -102,7 +123,8 @@ class UserDaoTest {
     @Test
     void ShouldUpdateUser() {
         // given
-        User oldUser = underTest.getUserByLogin("Jbood").get();
+        String login = JKIM.getLogin();
+        User oldUser = underTest.getUserByLogin(login).get();
         User newUser = new User(
                 oldUser.getId(),
                 "Johny",
