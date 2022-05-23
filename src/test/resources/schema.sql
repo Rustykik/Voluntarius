@@ -1,6 +1,8 @@
-drop table if exists users;
-drop table if exists events;
-create table users
+-- drop table if exists users_table;
+-- drop table if exists event_table;
+-- drop table if exists subscribed;
+
+create table users_table
 (
     id INT not null primary key AUTO_INCREMENT,
     firstname VARCHAR (50),
@@ -13,7 +15,7 @@ create table users
 create table event_table
 (
     id INT not null primary key AUTO_INCREMENT,
-    owner_id INT not null REFERENCES users(id),
+    owner_id INT not null REFERENCES users_table(id),
     eventName VARCHAR (50),
     description VARCHAR (400),
     eventStart DATETIME,
@@ -25,6 +27,6 @@ create table event_table
 -- add unique pair
 create table subscribed
 (
-    user_id LONG REFERENCES users(id),
+    user_id LONG REFERENCES users_table(id),
     event_id LONG REFERENCES event_table(id)
 );

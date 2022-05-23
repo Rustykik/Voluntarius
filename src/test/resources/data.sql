@@ -1,8 +1,8 @@
-insert into users (firstname, lastname, login, passwd,email)
+insert into users_table (firstname, lastname, login, passwd,email)
 values ('Jhon', 'Kim', 'Jkim', '123', 'jk@mail.ru'),
        ('King', 'Kong', 'KK', 'qwer', 'KingKong@mail.ru'),
-       ('Anton', 'Gandon', 'AG', 'Ant', 'Contex@mail.ru'),
-       ('John', 'Cena', 'AndHisNameIs...', 'jkl;', 'JohnCena@mail.ru'),
+       ('Anton', 'Ton', 'AG', 'Ant', 'Contex@mail.ru'),
+       ('John', 'Cena', 'AndHisNameIs...', 'jkl', 'JohnCena@mail.ru'),
        ('Marshal', 'MM', 'Eminem', 'MyNameIs', 'Eminem@mail.ru'),
        ('Godzilla', 'UAAARHHH', 'LittleReptile', 'WWWWW', 'Godzilla@mail.ru');
 
