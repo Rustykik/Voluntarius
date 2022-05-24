@@ -1,16 +1,17 @@
 ## Not ready
-
+Will change readme to actual state in two days
 ---
 
 ## TO DO
 make datasource properties autoconfigurable from application.yml
 
 ### in progress
-- [ ] add tests
+- [x] add tests
 - check that owner id exists when insert event
 - [ ] make custom exceptions
-- [ ] add mvnw
+- [x] add mvnw
 - [ ] make user and events fully immutable
+- [ ] add DTO
 - [x] add spring framework:
 - [ ] should we always do new rowmappers or we can instance it in class
 - [ ] public List<Event> getCurrentEvents(LocalDateTime currentTime) without datetime formatter
@@ -56,7 +57,7 @@ Simple website to create and publish events
 
 ## Run
 
-mvn clean install
-docker-compose up
+./mvnw clean install  
+docker-compose up -d
 
 ## Return values
